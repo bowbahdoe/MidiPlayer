@@ -24,7 +24,7 @@ fn main() {
             }
             println!();
             for track in parser.chunks() {
-                println!("{:?}", track);
+                println!("{}", track);
             }
         }
     }

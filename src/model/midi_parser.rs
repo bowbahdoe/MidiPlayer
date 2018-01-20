@@ -23,14 +23,14 @@ impl MidiParser {
     // Returns a vector of the header Chunks
     pub fn header_chunks(&self) -> Vec<&Chunk> {
         self.chunks.iter()
-                   .filter(|chunk| chunk.of_type(['M', 'T', 'h', 'd']))
+                   .filter(|chunk| chunk.is_header())
                    .collect()
     }
 
     // Returns a vector of the track Chunks
     pub fn track_chunks(&self) -> Vec<&Chunk> {
         self.chunks.iter()
-                   .filter(|chunk| chunk.of_type(['M', 'T', 'r', 'k']))
+                   .filter(|chunk| chunk.is_track())
                    .collect()
     }
 

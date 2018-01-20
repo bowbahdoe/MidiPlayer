@@ -18,22 +18,27 @@ impl Chunk {
         }
     }
 
+    // Returns if this chunk is the passed in type
     pub fn of_type(&self, type_: [char; 4]) -> bool {
         self.type_ == Self::type_from_chars(type_)
     }
 
+    // Returns if this is a header chunk
     pub fn is_header(&self) -> bool {
         self.of_type(['M', 'T', 'h', 'd'])
     }
 
+    // Returns if this is a track chunk
     pub fn is_track(&self) -> bool {
         self.of_type(['M', 'T', 'r', 'k'])
     }
 
+    // Returns the length of this chunk
     pub fn length(&self) -> u32 {
         self.length
     }
 
+    // Returns the data stored in this chunk
     pub fn data(&self) -> &Vec<u8> {
         &self.data
     }
@@ -47,7 +52,13 @@ impl Chunk {
 impl Display for Chunk {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let t = self.type_;
-        write!(f, "[{}{}{}{}]; length: {} bytes", t[0] as char, t[1] as char, t[2] as char, t[3] as char, self.length)
+        write!(f,
+               "[{}{}{}{}]; length: {} bytes",
+                t[0] as char,
+                t[1] as char,
+                t[2] as char,
+                t[3] as char,
+                self.length)
     }
 }
 
@@ -65,5 +76,7 @@ mod tests {
                             data: Vec::new()};
         assert!(chunk.of_type(['M', 'T', 'r', 'k']));
         assert!(!chunk.of_type(['M', 'T', 'h', 'd']));
+        assert!(chunk.is_track());
+        assert!(!chunk.is_header());
     }
 }
