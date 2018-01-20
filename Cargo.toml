@@ -1,0 +1,8 @@
+[package]
+name = "midi_player"
+version = "0.1.0"
+authors = ["Ethan McCue <emccue@live.com>"]
+
+[dependencies]
+quick-error = "1.2.1"
+bit-vec = "0.4.4"
