@@ -6,3 +6,4 @@ authors = ["Ethan McCue <emccue@live.com>"]
 [dependencies]
 quick-error = "1.2.1"
 bit-vec = "0.4.4"
+rayon = "0.9.0"
