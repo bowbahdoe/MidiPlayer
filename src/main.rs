@@ -1,4 +1,5 @@
 extern crate bit_vec;
+extern crate rayon;
 
 mod model;
 

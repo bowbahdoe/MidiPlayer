@@ -1,6 +1,9 @@
 use std::fs::File;
 use std::io;
+use std::io::BufReader;
 use std::io::prelude::*;
+
+use rayon::prelude::*;
 
 use model::chunk::Chunk;
 
@@ -22,14 +25,14 @@ impl MidiParser {
 
     // Returns a vector of the header Chunks
     pub fn header_chunks(&self) -> Vec<&Chunk> {
-        self.chunks.iter()
+        self.chunks.par_iter()
                    .filter(|chunk| chunk.is_header())
                    .collect()
     }
 
     // Returns a vector of the track Chunks
     pub fn track_chunks(&self) -> Vec<&Chunk> {
-        self.chunks.iter()
+        self.chunks.par_iter()
                    .filter(|chunk| chunk.is_track())
                    .collect()
     }
@@ -40,7 +43,7 @@ impl MidiParser {
 
     /// Reads the file as chunks
     fn read_chunks(f: File) -> Result<Vec<Chunk>, io::Error>  {
-        let mut bytes = f.bytes();
+        let mut bytes = BufReader::new(f).bytes();
         let mut chunks = Vec::new();
 
         'read_loop : loop {
