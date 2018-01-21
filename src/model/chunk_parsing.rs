@@ -2,9 +2,9 @@ use model::chunk::Chunk;
 
 #[derive(Debug)]
 enum TrackDivision {
-    MSB_0 {ticks_per_quarter_note: u16},
-    MSB_1 {frames_per_second: i8,
-           ticks_per_frame: u8},
+    Msb0 { ticks_per_quarter_note: u16 },
+    Msb1 { frames_per_second: u8,
+           ticks_per_frame: u8 },
 }
 
 #[derive(Debug)]
@@ -32,14 +32,13 @@ pub fn parse_initial_header(chunk: &Chunk) -> Option<Header> {
 fn parse_division(raw_div: u16) -> TrackDivision {
     let msb = raw_div >> 15;
     if msb == 1 {
-        panic!("Not yet implemented");
-        /*TrackDivision::MSB_1 {
-            frames_per_second: ,
+        TrackDivision::Msb1 {
+            frames_per_second: ((raw_div >> 8) as i8).wrapping_neg() as u8,
             ticks_per_frame: raw_div as u8,
-        }*/
+        }
     }
     else {
-        TrackDivision::MSB_0 {
+        TrackDivision::Msb0 {
             ticks_per_quarter_note: raw_div
         }
     }

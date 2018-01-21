@@ -53,7 +53,7 @@ impl Display for Chunk {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let t = self.type_;
         write!(f,
-               "[{}{}{}{}]; length: {} bytes",
+               "[{}{}{}{}]: length: {} bytes",
                 t[0] as char,
                 t[1] as char,
                 t[2] as char,
